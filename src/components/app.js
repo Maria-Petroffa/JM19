@@ -14,9 +14,9 @@ class App extends React.Component {
         return (
             <>
                 <Header />
-                {/* <Filter />
+                <Filter />
                 <Tabs />
-                <Card /> */}
+                <Card />
             </>
         )
     }
