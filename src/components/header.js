@@ -11,11 +11,15 @@ display: block;
 margin-left: auto;
 margin-right: auto;
 
+width: 60px;
+padding: 0;
+
 
 `
 
 const Header = styled.header`
-margin-top: 50px;
+padding-top: 50px;
+
 
 `
 

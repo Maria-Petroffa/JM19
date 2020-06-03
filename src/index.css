@@ -1,8 +1,12 @@
+@import "/src/fonts/fonts";
 
-
+* {
+  box-sizing: border-box;
+}
 
 body {
-  background-color: #E5E5E5;
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  background: #F3F7FA;
 
 }
 
