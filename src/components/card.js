@@ -2,7 +2,7 @@ import React from "react";
 
 import styled from 'styled-components';
 
-import { format, formatDistance, formatRelative, subDays, getTime, parse, parseISO, getMinutes, getHours } from 'date-fns'
+import { parseISO, getMinutes, getHours } from 'date-fns'
 
 const logoAvia = (name) => `//pics.avs.io/99/36/${name}.png`;
 
@@ -154,9 +154,6 @@ class Card extends React.Component {
                 if (stops.length === 0) { return null; }
                 return stops.join(', ')
             }
-            console.log('проверка 5 элементов ', el)
-            // console.log(getMinutes(parseISO(departTime)))
-            // console.log(getHours(parseISO(departTime)))
 
 
             return (

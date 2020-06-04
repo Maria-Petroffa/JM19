@@ -14,6 +14,7 @@ padding-top: 20px;
 padding-left: 20px;
 padding-right: 20px;
 padding-bottom: 20px;
+height: 100%;
 
 `
 
@@ -51,29 +52,41 @@ margin-bottom: 1px;
 `
 
 class Filter extends React.Component {
+    checkBoxChange = (e) => {
+        const { filterPoints } = this.props
+        const id = e.target.id
+        const isChecked = e.target.checked
+        filterPoints(id, isChecked)
+
+        // console.log(e.target.checked)
+        // console.log(e.target.id)
+        // console.log(e)
+    }
+
     render() {
-        const { point: { all, withoutpoint, onepoint, twopoint, threepoint } } = this.props
+        // const { point: { all, withoutpoint, onepoint, onepoint, threepoint } } = this.props
+        // console.log(this.props)
         return (
             <Form>
                 <Legend>Количество пересадок</Legend>
                 <CheckboxItem>
-                    <Input checked={all} type="checkbox" name="all" id="all" value="all" />
+                    <Input onChange={this.checkBoxChange} type="checkbox" name="all" id="all" value="all" />
                     <Label>Все</Label>
                 </CheckboxItem>
                 <CheckboxItem>
-                    <Input checked={withoutpoint} type="checkbox" name="without" id="without" value="Без пересадок" />
+                    <Input onChange={this.checkBoxChange} type="checkbox" name="withoutpoint" id="withoutpoint" value="Без пересадок" />
                     <Label>Без пересадок</Label>
                 </CheckboxItem>
                 <CheckboxItem>
-                    <Input checked={onepoint} type="checkbox" name="oneway" id="oneway" value="1 пересадка" />
+                    <Input onChange={this.checkBoxChange} type="checkbox" name="onepoint" id="onepoint" value="1 пересадка" />
                     <Label>1 пересадка</Label>
                 </CheckboxItem>
                 <CheckboxItem>
-                    <Input checked={twopoint} type="checkbox" name="twoway" id="twoway" value="2 пересадки" />
+                    <Input onChange={this.checkBoxChange} type="checkbox" name="twopoint" id="twopoint" value="2 пересадки" />
                     <Label>2 пересадки</Label>
                 </CheckboxItem>
                 <CheckboxItem>
-                    <Input checked={threepoint} type="checkbox" name="threeway" id="threeway" value="3 пересадки" />
+                    <Input onChange={this.checkBoxChange} type="checkbox" name="threepoint" id="threepoint" value="3 пересадки" />
                     <Label>3 пересадки</Label>
                 </CheckboxItem>
             </Form>

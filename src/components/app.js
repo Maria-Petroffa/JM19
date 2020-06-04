@@ -40,9 +40,9 @@ class App extends React.Component {
             tickets: [],
             filter: {
                 all: false,
-                withoutpoint: true,
+                withoutpoint: false,
                 onepoint: false,
-                twopoint: true,
+                twopoint: false,
                 threepoint: false,
             },
         }
@@ -88,47 +88,124 @@ class App extends React.Component {
 
         const ticketsArr = tickets
 
-        const newArr = []
-        if (withoutpoint) { newArr.push(0) }
-        if (onepoint) { newArr.push(1) }
-        if (twopoint) { newArr.push(2) }
-        if (threepoint) { newArr.push(3) }
+        const newArr = [null, null, null, null]
+        if (withoutpoint) { newArr[0] = 0 }
+        if (onepoint) { newArr[1] = 1 }
+        if (twopoint) { newArr[2] = 2 }
+        if (threepoint) { newArr[3] = 3 }
 
-        // console.log(newArr)
+        console.log(newArr)
 
-        function compareNumeric(a, b) {
+        function compareCheap(a, b) {
             return a.price - b.price;
         }
 
-        const allFilter = ticketsArr
+        function compareFast(a, b) {
+            const wayThereOne = a.segments[0].duration
+            const wayBackOne = a.segments[1].duration
+            const durationThereBackOne = wayThereOne + wayBackOne
+            const wayThereTwo = b.segments[0].duration
+            const wayBackTwo = b.segments[1].duration
+            const durationThereBackTwo = wayThereTwo + wayBackTwo
+            return durationThereBackOne - durationThereBackTwo;
+        }
+
+        const allFilterCheap = ticketsArr
             .filter((el) => {
                 const stops = el.segments[0].stops.length
-                for (let i = 0; newArr.length > i; i += 1) {
-                    if (newArr[i] === stops) {
-                        return el;
-                    }
+                // console.log('stops', stops)
+
+                if (all === true) { return el; }
+                if (stops === newArr[0] || stops === newArr[1] || stops === newArr[2] || stops === newArr[3]) {
+                    return el;
                 }
             })
-            .sort(compareNumeric)
+            .sort(compareCheap)
+            .splice(0, 5)
+
+        const allFilterFast = ticketsArr
+            .filter((el) => {
+                const stops = el.segments[0].stops.length
+
+                if (all) { return el; }
+                if (stops === newArr[0] || stops === newArr[1] || stops === newArr[2] || stops === newArr[3]) {
+                    return el;
+                }
+            })
+            .sort(compareFast)
             .splice(0, 5)
 
 
-        // console.log(allFilter)
-        return allFilter;
+        if (cheap) { return allFilterCheap }
+        return allFilterFast;
+    }
 
-
-        //   console.log(allFilter.sort(compareNumeric).splice(0, 5))
-        // console.log(filterData())
+    filterPoints = (id, isChecked) => {
+        const { filter: { all, withoutpoint, onepoint, twopoint, threepoint, } } = this.state
+        if (id === 'all') {
+            this.setState({
+                filter: {
+                    all: isChecked,
+                    withoutpoint,
+                    onepoint,
+                    twopoint,
+                    threepoint,
+                }
+            })
+        }
+        if (id === 'withoutpoint') {
+            this.setState({
+                filter: {
+                    all,
+                    withoutpoint: isChecked,
+                    onepoint,
+                    twopoint,
+                    threepoint,
+                }
+            })
+        }
+        if (id === 'onepoint') {
+            this.setState({
+                filter: {
+                    all,
+                    withoutpoint,
+                    onepoint: isChecked,
+                    twopoint,
+                    threepoint,
+                }
+            })
+        }
+        if (id === 'twopoint') {
+            this.setState({
+                filter: {
+                    all,
+                    withoutpoint,
+                    onepoint,
+                    twopoint: isChecked,
+                    threepoint,
+                }
+            })
+        }
+        if (id === 'threepoint') {
+            this.setState({
+                filter: {
+                    all,
+                    withoutpoint,
+                    onepoint,
+                    twopoint,
+                    threepoint: isChecked,
+                }
+            })
+        }
     }
 
     render() {
-        // this.filtredTicket()
 
         return (
             <>
                 <Header />
                 <Section>
-                    <Filter point={this.state.filter} />
+                    <Filter filterPoints={this.filterPoints} />
                     <Result>
                         <Tabs tab={this.state.tab} handleClick={this.handleTab} />
                         <Card tickets={this.filtredTicket()} />
