@@ -9,8 +9,8 @@ width: 755px;
 display: flex;
 flex-wrap: nowrap;
 justify-content: space-between;
-`
+`;
 
 export const Result = styled.div`
 width: 500px;
-`
+`;

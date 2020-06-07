@@ -14,7 +14,7 @@ padding-right: 20px;
 padding-bottom: 20px;
 height: 100%;
 
-`
+`;
 
 export const Legend = styled.legend`
 font-weight: 600;
@@ -22,7 +22,7 @@ font-size: 12px;
 color: #4A4A4A;
 text-transform: uppercase;
 
-`
+`;
 
 export const CheckboxItem = styled.p`
 
@@ -64,11 +64,11 @@ margin-top: 20px;
     background-color: #ffffff;
     background-image: url(${shape});
   }
-`
+`;
 
 export const Input = styled.input`
 border: 1px solid;
-border-color: ${props => props.checked ? '#2196F3' : '#9ABBCE'};
+border-color: ${(props) => (props.checked ? '#2196F3' : '#9ABBCE')};
 color: #2196F3;
 background-color: white;
 width: 20px;
@@ -77,7 +77,7 @@ border-radius: 2px;
 margin: 0;
 
 
-`
+`;
 
 export const Label = styled.label`
 display: inline;
@@ -85,4 +85,4 @@ display: inline;
 margin-bottom: 1px;
 
 font-size: 13px;
-`
+`;

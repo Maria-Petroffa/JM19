@@ -6,8 +6,8 @@ margin-left: auto;
 margin-right: auto;
 width: 60px;
 padding: 0;
-`
+`;
 
 export const Header = styled.header`
 padding-top: 50px;
-`
+`;
