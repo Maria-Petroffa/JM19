@@ -105,6 +105,10 @@ export const Label = styled.label`
 display: inline;
 
 margin-bottom: 1px;
+&:hover {
+  cursor: pointer;
+  background-color: #F1FCFF;
+}
 
 font-size: 13px;
 `;
