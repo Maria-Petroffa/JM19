@@ -1,4 +1,5 @@
 import React from 'react';
+import { uniqueId } from 'lodash';
 import {
   logoAvia, parsePrice, flightWay, flightTime, durationWay, durationHead, stopsCount, stopsPoint,
 } from './helper';
@@ -7,8 +8,6 @@ import {
 
   CardMain, CardMainHead, Price, Logo, LogoWrap,
 } from './style';
-
-import {uniqueId} from 'lodash';
 
 
 class Card extends React.Component {

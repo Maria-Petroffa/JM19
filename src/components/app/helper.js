@@ -23,16 +23,16 @@ const ticketsList = (tickets, newArr, cheap, all) => {
   if (allIsActive === false) {
     ticketsArr = tickets.filter((el) => {
       const stops = el.segments[0].stops.length;
-      if (newArr.includes(stops)) { 
-        return el; }      
-    })
+      if (newArr.includes(stops)) {
+        return el;
+      }
+    });
   }
 
   const sorted = cheap ? ticketsArr.sort(compareCheap) : ticketsArr.sort(compareFast);
 
   return sorted.splice(0, 5);
-
-}
+};
 
 export const filtredTicket = (state) => {
   const {
