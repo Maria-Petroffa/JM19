@@ -32,7 +32,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -b master -d build",
     "precommit": "npm test",
-    "lint": "eslint src/",
+    "lint": "eslint src/**/*.js",
     "lint:fix": "eslint --fix src/"
   },
   "browserslist": {
