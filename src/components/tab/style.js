@@ -12,6 +12,8 @@ font-size: 12px;
 text-transform: uppercase;
 
 box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+
+
 `;
 
 export const TabItem = styled.div`
@@ -27,8 +29,8 @@ font-weight: 600;
 
 border-color: ${(props) => (props.active ? '#2196F3' : '#DFE5EC')};
 padding-top: 20px;
+border-radius: ${(props) => (props.id === 'cheap' ? '5px 0px 0px 5px' : '0px 5px 5px 0px')};
 
-border-radius: 5px;
 
 cursor: ${(props) => (props.active ? 'default' : 'pointer')};
 `;

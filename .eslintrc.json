@@ -1,6 +1,6 @@
 {
     "extends": [
-      "airbnb"
+      "airbnb", "react-app"
     ],
     "plugins": ["react"],
     "parser": "babel-eslint",
@@ -10,7 +10,7 @@
     },
     "rules": {
       "max-depth": ["warn", 4],
-      "id-length": ["warn", { "exceptions": ["i", "j"], "min": 2 }],
+      "id-length": ["warn", { "exceptions": ["i", "j"], "min": 1 }],
       "no-lonely-if": ["error"],
       "no-plusplus": ["error", {"allowForLoopAfterthoughts": true}],
       "react/state-in-constructor": ["off"],
@@ -21,18 +21,25 @@
       "react/jsx-filename-extension": ["off"],
       "react/forbid-prop-types": ["off"],
       "react/no-unused-state": ["off"],
-      "no-restricted-globals": ["off"],
       "react/prop-types": ["off"],
-      "react/destructuring-assignment": ["off"],
+      "consistent-returnh": ["off"],
       "react/prefer-stateless-function": ["off"],
-      "jsx-a11y/media-has-caption": ["off"],
-      "id-length": ["off"],
-      "max-len":"off",
-      "consistent-return":"off",
-      "array-callback-return":"off",
       "import/prefer-default-export": ["off"],
-      "no-unused-vars":"off"
+      "react/destructuring-assignment": ["off"],
+      "no-param-reassign": ["off"],
+      "consistent-return": ["off"],
+      "no-return-assign": "off",
+      "array-callback-return": ["off"]
+           
     },
+    "overrides": [
+      {
+        "files": [ "src/**/*.js" ],
+        "rules": {
+          "quotes": [ 2, "single" ]
+        }
+      }
+    ],
     "settings": {
       "react": {
         "pragma": "React",

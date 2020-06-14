@@ -1,103 +1,111 @@
 import React from 'react';
 import axios from 'axios';
-import Card from '../card/card';
+import CardList from '../card/card';
 import Filter from '../filter/filter';
 import Header from '../header/header';
 import Tabs from '../tab/tabs';
+import {idPath, ticketPath} from '../../service/service';
 
 import { Section, Result } from './style';
-import { filtredTicket } from './filtredTicket';
+import { filtredTicket } from './helper';
 
-const idPath = 'https://front-test.beta.aviasales.ru/search';
-const ticketPath = (id) => `https://front-test.beta.aviasales.ru/tickets?searchId=${id}`;
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       tab:
-            {
-              fast: false,
-              cheap: true,
-            },
+      {
+        fast: false,
+        cheap: true,
+      },
       tickets: [],
       filter: {
-        all: false,
-        withoutpoint: false,
-        onepoint: false,
-        twopoint: false,
-        threepoint: false,
+        all: { isActive: false, name: 'Все' },
+        withoutpoint: { isActive: false, name: 'Без пересадок' },
+        onepoint: { isActive: false, name: '1 пересадка' },
+        twopoint: { isActive: false, name: '2 пересадки' },
+        threepoint: { isActive: false, name: '3 пересадки' },
       },
     };
   }
 
-  componentDidMount() {
-    axios.get(idPath)
-      .then((response) => {
-        const id = response.data.searchId;
-        const requestPath = ticketPath(id);
-        return requestPath;
-      })
-      .then((res) => {
-        axios.get(res)
-          .then((val) => {
-            const { tickets } = val.data;
-            this.setState({ tickets });
-          });
-      });
+  async componentDidMount() {
+    const responseId = await axios.get(idPath);
+    const id = responseId.data.searchId;
+    const requestPath = ticketPath(id);
+    const ticketsList = []
+    const createTicketList = (list) => {
+      this.setState({ tickets: list });
+    }
+
+    async function f() {
+      try {
+        let responseTickets = await axios.get(requestPath)
+        const { tickets, stop } = responseTickets.data;
+        await ticketsList.push(...tickets)
+        if (stop === true) {
+          createTicketList(ticketsList);
+          return;
+        };
+        f();
+      }
+      catch (err) {
+        if (err.name === "Error") { f() }
+      }
+    }
+    f();
   }
 
-    handleTab = (id) => {
-      const { tab: { fast, cheap } } = this.state;
-      const isTrue = this.state.tab[id];
+  handleChangeTab = (id) => {
+    const { tab: { fast, cheap } } = this.state;
+    const isActiveTab = this.state.tab[id];
 
-      if (isTrue) { return null; }
-      this.setState({
-        tab:
-            {
-              fast: !fast,
-              cheap: !cheap,
-            },
+    if (isActiveTab) { return null; }
+    this.setState({
+      tab:
+      {
+        fast: !fast,
+        cheap: !cheap,
+      },
+    })
+  }
+
+  filterPoints = (id, isChecked) => {
+    const { filter: { [id]: { name } } } = this.state
+    if (id === 'all') {
+      return this.setState((state) => {
+        return state.filter = {
+          all: { isActive: isChecked, name: 'Все' },
+          withoutpoint: { isActive: isChecked, name: 'Без пересадок' },
+          onepoint: { isActive: isChecked, name: '1 пересадка' },
+          twopoint: { isActive: isChecked, name: '2 пересадки' },
+          threepoint: { isActive: isChecked, name: '3 пересадки' },
+        }
+
       });
     }
 
-    filterPoints = (id, isChecked) => {
-      let {
-        filter: {
-          all, withoutpoint, onepoint, twopoint, threepoint,
-        },
-      } = this.state;
+    this.setState((state) => {
+      state.filter.all.isActive = false
+      return state.filter[id] = { isActive: isChecked, name }
 
-      if (id === 'all') { all = isChecked; }
-      if (id === 'withoutpoint') { withoutpoint = isChecked; }
-      if (id === 'onepoint') { onepoint = isChecked; }
-      if (id === 'twopoint') { twopoint = isChecked; }
-      if (id === 'threepoint') { threepoint = isChecked; }
+    });
+  }
 
-      this.setState({
-        filter: {
-          all,
-          withoutpoint,
-          onepoint,
-          twopoint,
-          threepoint,
-        },
-      });
-    } //
-
-    render() {
-      return (
-        <>
-          <Header />
-          <Section>
-            <Filter filterPoints={this.filterPoints} filter={this.state.filter} />
-            <Result>
-              <Tabs tab={this.state.tab} handleClick={this.handleTab} />
-              <Card tickets={filtredTicket(this.state)} />
-            </Result>
-          </Section>
-        </>
-      );
-    }
+  render() {
+    return (
+      <>
+        <Header />
+        <Section>
+          <Filter filterPoints={this.filterPoints} filter={this.state.filter} />
+          <Result>
+            <Tabs tab={this.state.tab} handleClick={this.handleChangeTab} />
+            <CardList tickets={filtredTicket(this.state)} />
+          </Result>
+        </Section>
+      </>
+    );
+  }
 }
 
 export default App;

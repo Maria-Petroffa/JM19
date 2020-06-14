@@ -1,28 +1,30 @@
 import React from 'react';
 import {
   logoAvia, parsePrice, flightWay, flightTime, durationWay, durationHead, stopsCount, stopsPoint,
-} from './functions';
+} from './helper';
 import {
   CardData, CardDataWrap, CardDataHeader, CardDataBody,
 
   CardMain, CardMainHead, Price, Logo, LogoWrap,
 } from './style';
 
+import {uniqueId} from 'lodash';
+
 
 class Card extends React.Component {
-  renderCardDataWrap = (wayFrom, wayBack, funcFirst, funcSecond) => (
+  renderCardDataWrap = (wayFrom, wayBack, header, body) => (
     <CardDataWrap>
-      <CardDataHeader>{funcFirst(wayFrom)}</CardDataHeader>
-      <CardDataBody>{funcSecond(wayFrom)}</CardDataBody>
-      <CardDataHeader>{funcFirst(wayBack)}</CardDataHeader>
-      <CardDataBody>{funcSecond(wayBack)}</CardDataBody>
+      <CardDataHeader>{header(wayFrom)}</CardDataHeader>
+      <CardDataBody>{body(wayFrom)}</CardDataBody>
+      <CardDataHeader>{header(wayBack)}</CardDataHeader>
+      <CardDataBody>{body(wayBack)}</CardDataBody>
     </CardDataWrap>
   )
 
   renderCart = (tickets) => tickets.map((element) => {
     const { segments, price, carrier } = element;
     return (
-      <CardMain>
+      <CardMain key={uniqueId()}>
         <CardMainHead>
           <Price>{`${parsePrice(price)} P`}</Price>
           <LogoWrap><Logo src={logoAvia(carrier)} alt="some logo" /></LogoWrap>

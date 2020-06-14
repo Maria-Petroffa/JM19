@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import shape from './Shape.svg';
+import shape from '../../media/Shape.svg';
 
 export const Form = styled.form`
 display: block;
@@ -13,7 +13,15 @@ padding-left: 20px;
 padding-right: 20px;
 padding-bottom: 20px;
 height: 100%;
-
+@media (max-width: 767px) {
+  width: 500px;
+  margin-left: auto;
+margin-right: auto;
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
 `;
 
 export const Legend = styled.legend`
@@ -21,6 +29,10 @@ font-weight: 600;
 font-size: 12px;
 color: #4A4A4A;
 text-transform: uppercase;
+@media (max-width: 767px) {
+  width: 500px;
+  
+}
 
 `;
 
@@ -31,6 +43,11 @@ font-size: 13px;
 
 color: #4A4A4A;
 margin-top: 20px;
+
+&:hover {
+  cursor: pointer;
+  background-color: #F1FCFF;
+}
 
 .custom-checkbox {
     position: absolute;
@@ -63,6 +80,11 @@ margin-top: 20px;
     border-color: #2196F3;
     background-color: #ffffff;
     background-image: url(${shape});
+  }
+
+  @media (max-width: 767px) {
+    width: 120px;
+    
   }
 `;
 

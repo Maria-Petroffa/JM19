@@ -4,13 +4,7 @@ import {
   Form, Legend, CheckboxItem, Input, Label,
 } from './style';
 
-const filterNames = {
-  all: 'Все',
-  withoutpoint: 'Без пересадок',
-  onepoint: '1 пересадка',
-  twopoint: '2 пересадки',
-  threepoint: '3 пересадки',
-};
+// import {uniqueId} from 'lodash';
 
 class Filter extends React.Component {
     checkBoxChange = (e) => {
@@ -21,11 +15,12 @@ class Filter extends React.Component {
     }
 
     renderCheckboxItems = (arr, obj) => arr.map((element) => {
-      const value = obj[element];
+      const value = obj[element].name;
+      const isChecked = obj[element].isActive;
 
       return (
         <CheckboxItem>
-          <Input onChange={this.checkBoxChange} className="custom-checkbox" type="checkbox" name={element} id={element} />
+          <Input checked={isChecked} onChange={this.checkBoxChange} className="custom-checkbox" type="checkbox" name={element} id={element} />
           <Label className="label" htmlFor={element}>{value}</Label>
         </CheckboxItem>
       );
@@ -33,11 +28,10 @@ class Filter extends React.Component {
 
     render() {
       const { filter } = this.props;
-
       return (
         <Form>
           <Legend>Количество пересадок</Legend>
-          {this.renderCheckboxItems(Object.keys(filter), filterNames)}
+          {this.renderCheckboxItems(Object.keys(filter), filter)}
         </Form>
       );
     }

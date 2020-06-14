@@ -1,5 +1,5 @@
 import React from 'react';
-import logoFly from './Logo.png';
+import logoFly from '../../media/Logo.png';
 import { Logo, Header } from './style';
 
 export default class HeaderMain extends React.Component {

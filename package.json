@@ -7,7 +7,10 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
+    "babel-eslint": "^10.1.0",
     "date-fns": "^2.14.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-react-app": "^5.2.1",
     "gh-pages": "^2.2.0",
     "lodash": "^4.17.15",
     "prop-types": "^15.7.2",
@@ -15,9 +18,7 @@
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
     "reset-css": "^5.0.1",
-    "styled-components": "^5.1.0",
-    "babel-eslint": "^10.1.0",
-    "eslint-config-airbnb-base": "^14.1.0"
+    "styled-components": "^5.1.0"
   },
   "homepage": "https://maria-petroffa.github.io/JM19/",
   "scripts": {
